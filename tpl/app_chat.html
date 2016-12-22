@@ -1,0 +1,233 @@
+<style type="text/css">
+    .chat-list-content{
+        width:73.05%;
+        height:50px;
+        margin-bottom: -8px;
+    }
+    .sidebarScroll{
+        width:267px;
+    }
+    .content{
+        width: 100%;
+    }
+    /*@media screen and (max-width:991px) {
+        .sidebar{
+            position:relative;
+        }
+        .sidebarScroll{
+            width:auto;
+            height:auto!important;
+        }
+        .content{
+            padding-left:0;
+        }
+    }*/
+</style>
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="chatCtrl">
+    <div class="col w-md b-r sidebar">
+        <div class="nav-tabs-alt">
+            <ul class="nav nav-tabs nav-justified">
+                <li  ui-sref="app.works.list" ng-class="{'active': tabs[0]}">
+                    <a href ng-click="tab(0)"><h4>事务</h4></a>
+                </li>
+                <li ng-class="{'active': tabs[1]}" class="active">
+                    <a href ng-click="tab(1)"><h4>消息</h4></a>
+                </li>
+            </ul>
+        </div>
+        <div class="row-row">
+            <div class="cell">
+                <div class="cell-inner">
+                    <div class="tab-content">
+                        <div class="tab-pane" ng-class="{'active': tabs[1]}">
+                            <div class="clear">
+                                <div class="nav-tabs-alt">
+                                    <ul class="nav nav-tabs nav-justified">
+                                        <li ng-class="{'active': tabs1[0]}" class="active">
+                                            <a href ng-click="tab1(0)"><i class="fa fa-comments-o"></i></a>
+                                        </li>
+                                        <li ng-class="{'active': tabs1[1]}">
+                                            <a href ng-click="tab1(1)"><i class="icon-user"></i></a>
+                                        </li>
+                                        <li ng-class="{'active': tabs1[2]}">
+                                            <a href ng-click="tab1(2)"><i class="icon-users"></i></a>
+                                        </li>
+                                        <li ng-class="{'active': tabs1[3]}">
+                                            <a href ng-click="tab1(3)"><i class="icon-calendar"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row-row">
+                                    <div class="cell scrollable sidebarScroll">
+                                        <div class="cell-inner">
+                                            <div class="tab-content">
+                                                <div class="tab-pane" ng-class="{'active': tabs1[0]}">
+                                                    <div class="form-group wrapper-sm m-r-md">
+                                                        <div class="input-group m-r-xs">
+                                                            <span class="input-group-btn">
+                                                              <button type="submit" class="btn btn-sm bg-white b-light rounded"><i class="fa fa-search"></i></button>
+                                                            </span>
+                                                            <input type="text" ng-model="selected"  class="form-control input-sm b-light rounded padder" placeholder="检索">
+                                                        </div>
+                                                        <div class="no-radius list-group m-r-xs m-b-none m-t bg-white">
+                                                            <a ng-repeat="item in items1" class="list-group-item clearfix b-l-light b-l-3x hover-anchor b-l-{{color(item.name)}}" ui-sref-active="active"  style="border-top:none;border-right:none;border-bottom:none;"
+                                                                ng-class="{'hover': item.selected}" ng-click="selectItem(item)" ui-sref="app.chat.content({item:item})"><!-- ,'b-l-{{item.color}}': item.selected -->
+                                                                <span class="pull-left thumb-sm m-r-xs m-t-xs"><span ng-bind-html="avatar(item.image,item.name_image,'md')"></span></span>
+                                                                <span ng-if="item.small" class="b-b pull-left chat-list-content " style="line-height:24px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.content}}</span>
+                                                                        <small class="text-muted text-ellipsis">{{item.small}}</small>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                                <span ng-if="!item.small" class="b-b pull-left chat-list-content" style="line-height:50px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.content}}</span>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" ng-class="{'active': tabs1[1]}">
+                                                    <div class="form-group m-r-md wrapper-sm ">
+                                                        <div class="text-muted wrapper-xs">在线同事({{item1_l}})</div>
+                                                        <div class="list-group no-radius m-r-xs m-b-none bg-white">
+                                                            <a ng-repeat="item in items1" ui-sref-active="active" ng-class="{'hover': item.selected}" ng-click="selectItem(item)"
+                                                               ui-sref="app.chat.content({item:item})" class="list-group-item clearfix b-l-light b-l-3x hover-anchor b-l-{{color(item.name)}}"
+                                                               style="border-top:none;border-right:none;border-bottom:none;">
+                                                                <span class="pull-left thumb-sm m-r-xs m-t-xs"><span ng-bind-html="avatar(item.image,item.name_image,'md')"></span></span>
+                                                                <span ng-if="item.small" class="b-b pull-left chat-list-content" style="line-height:24px;">
+                                                                    <span class="pull-right text-success m-t-sm" style="font-size: 10px;">
+                                                                        <i class="fa fa-circle"></i>
+                                                                    </span>
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right m-r-sm">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.name}}</span>
+                                                                        <small class="text-muted text-ellipsis">{{item.small}}</small>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                                <span ng-if="!item.small" class="b-b pull-left chat-list-content" style="line-height:50px;">
+                                                                    <span class="pull-right text-success m-t-sm" style="font-size: 10px;line-height:24px;">
+                                                                        <i class="fa fa-circle"></i>
+                                                                    </span>
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right m-r-sm">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.name}}</span>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="text-muted wrapper-xs">领导组({{item2_l}})</div>
+                                                        <div class="list-group no-radiu m-r-xs m-b-none bg-white">
+                                                            <a ng-repeat="item in items2" ui-sref-active="active" ng-class="{'hover': item.selected}" ng-click="selectItem(item)"
+                                                               ui-sref="app.chat.content({item:item})" class="list-group-item clearfix b-l-light b-l-3x hover-anchor b-l-{{color(item.name)}}"
+                                                               style="border-top:none;border-right:none;border-bottom:none;">
+                                                                <span class="pull-left thumb-sm m-r-xs m-t-xs"><span ng-bind-html="avatar(item.image,item.name_image,'md')"></span></span>
+                                                                <span ng-if="item.small" class="b-b pull-left chat-list-content " style="line-height:24px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.name}}</span>
+                                                                        <small class="text-muted text-ellipsis">{{item.small}}</small>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                                <span ng-if="!item.small" class="b-b pull-left chat-list-content" style="line-height:50px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.name}}</span>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="text-muted wrapper-xs">人力资源部(0)</div>
+                                                        <div class="text-muted wrapper-xs">综合计划部(0)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" ng-class="{'active': tabs1[2]}">
+                                                    <div class="form-group m-r-md wrapper-sm">
+                                                        <div class="input-group m-r-xs m-b-xs">
+                                                            <span class="input-group-btn">
+                                                              <button type="submit" class="btn btn-sm bg-white b-light rounded"><i class="fa fa-search"></i></button>
+                                                            </span>
+                                                            <input type="text" ng-model="selected"  class="form-control input-sm bg-white b-light rounded padder" placeholder="检索">
+                                                        </div>
+                                                        <div class="list-group no-radius m-b-none m-r-xs bg-white">
+                                                            <a ng-repeat="item in items2" ui-sref-active="active" ui-sref="app.chat.content({item:item})" class="list-group-item clearfix b-l-light b-l-3x hover-anchor b-l-{{color(item.name)}}"
+                                                               ng-class="{'hover': item.selected}" ng-click="selectItem(item)" style="border-top:none;border-right:none;border-bottom:none;">
+                                                                <span class="pull-left thumb-sm m-r-xs m-t-xs">
+                                                                    <span ng-bind-html="avatar(item.image,item.name_image,'md')"></span>
+                                                                </span>
+                                                                <span ng-if="item.small" class="b-b pull-left chat-list-content " style="line-height:24px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.content}}</span>
+                                                                        <small class="text-muted text-ellipsis">{{item.small}}</small>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                                <span ng-if="!item.small" class="b-b pull-left chat-list-content" style="line-height:50px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.content}}</span>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" ng-class="{'active': tabs1[3]}">
+                                                    <div class="form-group m-r-md wrapper-sm">
+                                                        <div class="input-group m-r-sm m-b-xs">
+                                                            <span class="input-group-btn">
+                                                              <button type="submit" class="btn btn-sm bg-white b-light rounded"><i class="fa fa-search"></i></button>
+                                                            </span>
+                                                            <input type="text" ng-model="selected"  class="form-control input-sm bg-white b-light rounded padder" placeholder="检索">
+                                                        </div>
+                                                        <div class="list-group no-radius m-r-xs m-b-none bg-white m-t">
+                                                            <a ng-repeat="item in items3" ui-sref-active="active"
+                                                               ng-class="{'hover': item.selected}" ng-click="selectItem(item)"
+                                                               ui-sref="app.chat.content({item:item})" class="list-group-item clearfix b-l-light b-l-3x hover-anchor b-l-{{color(item.name)}}"
+                                                               style="border-top:none;border-right:none;border-bottom:none;">
+                                                                <span class="pull-left thumb-sm m-r-xs m-t-xs"><span ng-bind-html="avatar(item.image,item.name_image,'md')"></span></span>
+                                                                <span ng-if="item.small" class="b-b pull-left chat-list-content" style="line-height:24px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.content}}</span>
+                                                                        <small class="text-muted text-ellipsis">{{item.small}}</small>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                                <span ng-if="!item.small" class="b-b pull-left chat-list-content" style="line-height:50px;">
+                                                                    <span class="m-t-sm badge badge-empty bg-danger pull-right">{{item.badge}}</span>
+                                                                    <span class="clear">
+                                                                        <span class="text-ellipsis">{{item.content}}</span>
+                                                                    </span>
+                                                                    <span class="clearfix"></span>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col content">
+        <div ui-view ></div>
+    </div>
+</div>

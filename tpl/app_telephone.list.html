@@ -1,0 +1,168 @@
+<style>
+    .nav-tabs-alt .nav-tabs > li > a {
+    background: transparent !important;
+    border-color: transparent !important;
+    border-bottom-color: transparent !important;
+    border-radius: 0;
+}
+.nav-tabs-alt .nav-tabs > li.active > a {
+    font-weight: bold;
+    font-size: 18px;
+}
+.triangle_btn{
+    position: relative;
+    background-color: #146fbe;
+    color: white;
+}
+.triangle_btn:hover{
+    color: white;
+}
+.triangle{
+    position: absolute;
+    left: 45%;
+    bottom: 0;
+    width:6px;
+    bottom: -14px;
+    border: 7px solid transparent;
+    border-top: 7px solid #0d54a2;
+    display: none;
+}
+.searchModal{
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    left: 0;
+    top:35px;
+    z-index: 999999;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+  .table-main{
+    background-color:white;
+    margin-left:20px;
+    margin-top:20px;
+    margin-bottom:50px;
+    border-radius:10px;
+    border:0;
+    position:relative;
+  }
+  .span{
+    margin-left:5px;
+    margin-right: 40px;
+    padding-right:3px;
+  }
+  .caption{
+    background-color:#FBFBFB;
+    font-size:16px;
+   }
+  .input{
+    border-radius: 2px;
+    width: 120px;
+  }
+  .thead{
+    background-color:#B3B1B2;
+    position:relative;
+    margin-top:10px;
+    margin-bottom: 10px;
+    height:40px;
+    text-align: center;
+  }
+  .table-fix{
+    position:relative; 
+    height:700px;
+     overflow-y:auto;
+  }
+  .body{
+    overflow-y:auto;
+  }
+  td{
+    text-align:center;
+    }
+</style>
+
+<div ng-controller="telephoneListCtrl">
+  <!-- header -->
+  <div class="bg-light lter b-b">
+      
+ <div class="table-responsive">
+ <table class="table table-main" >
+  <caption class="caption">
+    <span class="span pull-left"><strong>{{dpName}}</strong></span>
+    <span class="span pull-right">
+        姓名：<input type="text" name="title" required="" lay-verify="required"  autocomplete="off" class="layui-input"/>
+        电话：<input type="text" name="title" required="" lay-verify="required"  autocomplete="off" class="layui-input"/>
+        手机：<input type="text" name="title" required="" lay-verify="required"  autocomplete="off" class="layui-input"/>
+        <button class="btn btn-primary">搜索</button>
+    </span>
+  </caption>
+  <thead>
+    <tr >
+  <td>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('A')">A</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('B')">B</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('C')">C</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('D')">D</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('E')">E</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('F')">F</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('G')">G</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('H')">H</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('I')">I</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('J')">J</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('K')">K</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('L')">L</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('M')">M</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('N')">N</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('O')">O</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('P')">P</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('Q')">Q</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('R')">R</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('S')">S</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('T')">T</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('U')">U</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('V')">V</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('W')">W</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('X')">X</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('Y')">Y</button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="click('Z')">Z</button>
+  </td>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+         <div class="table-responsive table-fix">
+            <table class="table table-hover" id="tbTest" style="background-color:white">
+              <thead class="thead">
+                 <tr>
+                  <td></td>
+                  <td><strong>姓名</strong></td>
+                  <td><strong>岗位</strong></td>
+                  <td><strong>手机</strong></td>
+                  <td><strong>座机</strong></td>
+                  <td><strong>邮箱</strong></td>
+                </tr>
+               </thead>
+               <tbody ng-repeat="d in dList" >
+                <tr>
+                   <td><div ng-bind-html="avatar('',d.name,'lg')"></div></td>
+                   <td>{{d.name}}</td>
+                   <td>{{d.position}}</td>
+                   <td>{{d.phone}}</td>
+                   <td>{{d.tel}}</td>
+                  <td>{{d.mail}}</td>
+                 </tr>
+                 </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+</table>
+</div>    
+</div>
+</div>
+
+
+  
+  

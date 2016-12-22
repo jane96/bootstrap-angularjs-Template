@@ -1,0 +1,106 @@
+<style type="text/css">
+    .chat-fun{
+        margin: -10px -15px 0 -15px;
+        background-color:#F0F3F4;
+        color:#999;
+        font-size:20px;
+    }
+    .chat-fun>a{
+        color:#999;
+    }
+    .send-content{
+        height:80px;
+    }
+    .send-content>textarea{
+        border: none;
+        resize:none;
+        width: 100%;
+        height: 100%;
+    }
+    .chat-send{
+        height:50px;
+        line-height:50px;
+        padding:0 10px;
+    }
+</style>
+<div class="container-fluid" ng-controller="chatContentController" ng-show="item!=null">
+    <div class="m-t bg-white">
+        <div class="wrapper-sm b-b b-light">
+            <div class="pull-left thumb-sm m-r-xs m-t-xs"><div ng-bind-html="avatar(p.image,p.name_image,'md')"></div></div>
+            <h4>
+                <span class="text-primary-dk">{{p.content}}</span>
+                <span class="text-muted">【{{p.type}}】</span>
+                <span class="text-muted small">创建时间:{{date}}</span>
+            </h4>
+            <div class="clearfix"></div>
+        </div>
+        <div class="hbox m-t-xxs chat-h">
+            <div class="col w-sm b-r b-l b-b chat_person">
+                <div class="list-group-sm no-radius no-border no-bg m-b-none" style="overflow-y:auto;height:100%;">
+                    <a class="list-group-item no-border" ng-init="selectedAll = true" ng-class="{'active': selectedAll}" ng-click="selectItem('all')">
+                        <div class="thumb-xs m-r-xs m-t-xs"><div ng-bind-html="avatar('','群','md')"></div></div>
+                        <span>群聊</span>
+                    </a>
+                    <a class="list-group-item no-border" ng-repeat="user in users" ui-sref-active="active"
+                       ng-class="{'active': user.selected}" ng-click="selectItem(user)">
+                        <div class="thumb-xs m-r-xs m-t-xs"><div ng-bind-html="avatar(user.image,user.name_image,'md')"></div></div>
+                        <span>{{user.name}}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col" style="position:relative;width:100%;padding-left:10px;padding-bottom:169px;overflow-y:hidden;">
+                <div class="chat_content" style="overflow-y: auto;padding-top:10px;">
+                    <div class="m-b" ng-repeat="chat_content in chat_contents">
+                        <div ng-if="!chat_content.pull">
+                            <a href class="thumb-sm avatar pull-left"><div ng-bind-html="avatar(chat_content.image,chat_content.name_image,'md')"></div></a>
+                            <div class="m-l-xxl m-r-xxl">
+                                <div class="pos-rlt wrapper b b-light bg-light r r-2x text-black">
+                                    <span class="arrow left pull-up arrow-light"></span>
+                                    <p class="m-b-none">{{chat_content.content}}</p>
+                                </div>
+                                <small class="text-muted"><i class="fa fa-ok text-success"></i>{{chat_content.date}}</small>
+                            </div>
+                        </div>
+                        <div ng-if="chat_content.pull">
+                            <a href class="thumb-sm avatar pull-right"><div ng-bind-html="avatar(chat_content.image,chat_content.name_image,'md')"></div></a>
+                            <div class="m-l-xxl m-r-xxl">
+                                <div class="pos-rlt wrapper bg-success r r-2x text-white">
+                                    <span class="arrow right pull-up arrow-success"></span>
+                                    <p class="m-b-none">{{chat_content.content}}</p>
+                                </div>
+                                <small class="text-muted">{{chat_content.date}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer m-l-n-sm" style="position:absolute;bottom:0;width:100%;">
+                    <div class="dropdown-header chat-fun">
+                        <a class="m-r-sm" href="#"><i class="icon-emoticon-smile"></i></a>
+                        <a class="m-r-sm" href="#"><i class="fa fa-image"></i></a>
+                        <a class="m-r-sm" href="#"><i class="fa fa-paperclip"></i></a>
+                        <a class="m-r-sm" href="#">@</a>
+                    </div>
+                    <!-- chat form -->
+                    <div class="b-b b-light" style="height:130px;margin: 0 -15px -10px -15px">
+                        <form class="m-b-none" action="">
+                            <div class="send-content">
+                                <textarea ng-model="content" ng-keypress="send($event)"></textarea>
+                            </div>
+                            <div class="chat-send">
+                                <div class="pull-left">
+                                    <span class="fa fa-exclamation-circle"></span>
+                                    <span>按Enter键发送</span>
+                                </div>
+                                <div class="pull-right">
+                                    <span>还可以输入1000字</span>
+                                    <button class="btn btn-info" type="button">发送</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
